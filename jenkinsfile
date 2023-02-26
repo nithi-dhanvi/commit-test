@@ -33,6 +33,12 @@ pipeline {
                 }
             }  
         }
+        stage ("UAT Deploy") {
+            steps {
+                echo "${env.BUILD_NUMBER}"
+                        println "${env.BUILD_NUMBER}"
+                        sh "ansible-playbook -i UAT.inv UAT-deploy.yaml -e BUILD_NUMBER=${env.BUILD_NUMBER}"
+            }
         stage('Cleaning up') { 
            steps { 
                 sh "docker rmi $registry:$BUILD_NUMBER" 
