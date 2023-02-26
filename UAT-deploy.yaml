@@ -1,0 +1,9 @@
+---
+- hosts:  UAT-servers
+  tasks:
+    - name: log into docker hub registry
+      shell: docker login -u pothakamuri06 -p dckr_pat_e6SaFTjTOJXF43-uCqUsYKW8wjk
+    - name: Pull the image from docker hub
+      shell: docker pull pothakamuri06/testnginx1:{{BUILD_NUMBER}}
+    - name: Run the container using the Image
+      shell: docker run --name=testnginxv1 -p 8080:8080 --detach pothakamuri06/testnginx1:{{BUILD_NUMBER}}
