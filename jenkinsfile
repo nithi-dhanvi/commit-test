@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage ("Git Checkout") {
             steps {
-                checkout changelog: false, poll: false, scm:[$class: 'GitSCM', branches: [[name: commitHash ]],userRemoteConfigs: [[url: 'https://github.com/nithi-dhanvi/commit-test.git']]]
+                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: params.commit_id ]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/nithi-dhanvi/commit-test.git']]]
                 //git branch: "main", url: "https://github.com/nithi-dhanvi/commit-test.git"
             }
         }
@@ -31,8 +31,8 @@ pipeline {
                                                          
                     }
                 }
-            } 
-            }
+            }  
+        }
         stage('Cleaning up') { 
            steps { 
                 sh "docker rmi $registry:$BUILD_NUMBER" 
